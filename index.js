@@ -5,6 +5,9 @@ const cheerio = require('cheerio');
 
 const app = express();
 
+// ✅ Debugging: Log Environment Variable
+console.log("Server is running. ENV KEY:", process.env.RAPIDAPI_KEY || "NOT SET");
+
 const newspapers = [
     { name: 'cityam', address: 'https://www.cityam.com/london-must-become-a-world-leader-on-climate-change-action/', base: 'https://www.cityam.com' },
     { name: 'thetimes', address: 'https://www.thetimes.co.uk/environment/climate-change', base: 'https://www.thetimes.co.uk' },
