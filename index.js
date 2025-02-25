@@ -21,8 +21,16 @@ const newspapers = [
     { name: 'nyp', address: 'https://nypost.com/tag/climate-change/', base: 'https://nypost.com' }
 ];
 
+app.use((req, res, next) => {
+    const apiKey = req.headers['x-rapidapi-key']; // Get API key from request header
+    if (!apiKey || apiKey !== process.env.RAPIDAPI_KEY) {
+        return res.status(403).json({ error: 'Forbidden: Invalid API Key' });
+    }
+    next();
+});
+
 app.get('/', (req, res) => {
-    res.json('Welcome to my Climate Change News API');
+    res.json('Welcome to my Climate Change News Scraper API');
 });
 
 // Fetch all news from all sources
