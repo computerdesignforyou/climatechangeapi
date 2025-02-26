@@ -5,15 +5,14 @@ const cheerio = require('cheerio');
 
 const app = express();
 
-// ✅ Debugging: Log Environment Variable
-//console.log("Server is running. ENV KEY:", process.env.RAPIDAPI_KEY || "NOT SET");
+// ✅ Debugging: Log Environment Variable (Removed for production)
+// console.log("Server is running. ENV KEY:", process.env.RAPIDAPI_KEY || "NOT SET");
 
-// ✅ Debugging
-app.use((req, res, next) => {
-    console.log("Incoming request headers:", req.headers);
-    next();
-});
-// ✅ Debugging
+// ✅ Debugging: Log incoming request headers (Removed for production)
+// app.use((req, res, next) => {
+//     console.log("Incoming request headers:", req.headers);
+//     next();
+// });
 
 const newspapers = [
     { name: 'cityam', address: 'https://www.cityam.com/london-must-become-a-world-leader-on-climate-change-action/', base: 'https://www.cityam.com' },
@@ -33,8 +32,9 @@ const newspapers = [
 
 app.use((req, res, next) => {
     const apiKey = req.headers['x-rapidapi-proxy-secret']; // Get API key from request header
-    console.log("Received API Key:", apiKey);
-    console.log("Expected API Key:", process.env.RAPIDAPI_KEY || "NOT SET");
+    // ✅ Debugging: Log received API key (Removed for production)
+    // console.log("Received API Key:", apiKey);
+    // console.log("Expected API Key:", process.env.RAPIDAPI_KEY || "NOT SET");
 
     if (!apiKey || apiKey !== process.env.RAPIDAPI_KEY) {
         return res.status(403).json({ error: 'Forbidden: Invalid API Key' });
@@ -43,9 +43,8 @@ app.use((req, res, next) => {
 });
 
 
-
 app.get('/', (req, res) => {
-    res.json('Welcome to my Climate Change News Scraper API');
+    res.json('Welcome to Climate Change News Scraper API');
 });
 
 // Fetch all news from all sources
