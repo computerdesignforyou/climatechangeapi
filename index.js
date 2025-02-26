@@ -34,13 +34,14 @@ const newspapers = [
 app.use((req, res, next) => {
     const apiKey = req.headers['x-rapidapi-proxy-secret']; // Get API key from request header
     console.log("Received API Key:", apiKey);
-    console.log("Expected API Key:", process.env.x-rapidapi-proxy-secret || "NOT SET");
+    console.log("Expected API Key:", process.env.RAPIDAPI_KEY || "NOT SET");
 
-    if (!apiKey || apiKey !== process.env.x-rapidapi-proxy-secret) {
+    if (!apiKey || apiKey !== process.env.RAPIDAPI_KEY) {
         return res.status(403).json({ error: 'Forbidden: Invalid API Key' });
     }
     next();
 });
+
 
 
 app.get('/', (req, res) => {
