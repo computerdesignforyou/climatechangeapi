@@ -33,11 +33,15 @@ const newspapers = [
 
 app.use((req, res, next) => {
     const apiKey = req.headers['x-rapidapi-proxy-secret']; // Get API key from request header
-    if (!apiKey || apiKey !== process.env.x-rapidapi-proxy-secret) {
+    console.log("Received API Key:", apiKey);
+    console.log("Expected API Key:", process.env["x-rapidapi-proxy-secret"] || "NOT SET");
+
+    if (!apiKey || apiKey !== process.env["x-rapidapi-proxy-secret"]) {
         return res.status(403).json({ error: 'Forbidden: Invalid API Key' });
     }
     next();
 });
+
 
 app.get('/', (req, res) => {
     res.json('Welcome to my Climate Change News Scraper API');
